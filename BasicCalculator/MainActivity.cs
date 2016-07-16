@@ -12,7 +12,7 @@ using FragmentTransaction = Android.Support.V4.App.FragmentTransaction;
 namespace BasicCalculator
 {
     [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : AppCompatActivity, ButtonsFragment.OnButtonClickListener
     {
         int count = 1;
 
@@ -28,7 +28,15 @@ namespace BasicCalculator
                     .Add(Resource.Id.Buttons, ButtonsFragment.NewInstance())
                     .Commit();
             }
+        }
 
+        public void OnButtonClick(string s)
+        {
+            Util.Button button = Util.Buttons.Get(s);
+            DisplayFragment displayFragment = (DisplayFragment) this.SupportFragmentManager.FindFragmentById(Resource.Id.Diplay);
+            Util.Display display = displayFragment.GetDisplay();
+            button.Click(display);
+            displayFragment.Render(display.history, display.input);
         }
     }
 }

@@ -16,6 +16,11 @@ namespace BasicCalculator
     public class ButtonsFragment : Fragment, View.IOnClickListener
     {
 
+        public interface OnButtonClickListener
+        {
+            void OnButtonClick(string s);
+        }
+
         public static ButtonsFragment NewInstance()
         {
             return new ButtonsFragment();
@@ -37,7 +42,9 @@ namespace BasicCalculator
         void View.IOnClickListener.OnClick(View v)
         {
             string button = ((Button)v).Text;
-            Toast.MakeText(Context, button, ToastLength.Short).Show();
+            //TODO init onAttach
+            ((OnButtonClickListener)Activity).OnButtonClick(button);
+
         }
 
         private void InitViews(View rootView)
