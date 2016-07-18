@@ -71,7 +71,12 @@ namespace BasicCalculator.Util
     {
         public void Click(Display display)
         {
-            //TODO
+            string input = display.input;
+            if (input.Length !=0 )
+            {
+                input = input.Substring(0, input.Length - 1);
+                display.input = input;
+            }
         }
     }
 
