@@ -14,8 +14,6 @@ namespace BasicCalculator
     [Activity(Label = "@string/ApplicationName", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light.DarkActionBar")]
     public class MainActivity : AppCompatActivity, ButtonsFragment.OnButtonClickListener
     {
-        int count = 1;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

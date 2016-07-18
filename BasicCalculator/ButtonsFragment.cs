@@ -21,9 +21,24 @@ namespace BasicCalculator
             void OnButtonClick(string s);
         }
 
+        private OnButtonClickListener onButtonClickListener;
+
         public static ButtonsFragment NewInstance()
         {
             return new ButtonsFragment();
+        }
+
+        public override void OnAttach(Context context)
+        {
+            base.OnAttach(context);
+            try
+            {
+                onButtonClickListener = (OnButtonClickListener)context;
+            }
+            catch (InvalidCastException)
+            {
+                throw new InvalidCastException(context.ToString() + " must implement OnButtonClickListener");
+            }
         }
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -39,12 +54,16 @@ namespace BasicCalculator
             return view;
         }
 
+        public override void OnDetach()
+        {
+            base.OnDetach();
+            onButtonClickListener = null;
+        }
+
         void View.IOnClickListener.OnClick(View v)
         {
             string button = ((Button)v).Text;
-            //TODO init onAttach
-            ((OnButtonClickListener)Activity).OnButtonClick(button);
-
+            onButtonClickListener.OnButtonClick(button);
         }
 
         private void InitViews(View rootView)
