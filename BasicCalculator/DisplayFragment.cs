@@ -17,6 +17,7 @@ namespace BasicCalculator
     {
         private const string history_text_key = "history_text_key";
         private const string input_text_key = "input_text_key";
+        private ScrollView scrollView;
         private TextView historyTextView;
         private TextView inputTextView;
 
@@ -49,6 +50,7 @@ namespace BasicCalculator
         {
             historyTextView.Text = history;
             inputTextView.Text = input;
+            ScrollViewDown();
         }
 
         public Util.Display GetDisplay()
@@ -61,6 +63,7 @@ namespace BasicCalculator
 
         private void InitViews(View rootView)
         {
+            scrollView = rootView.FindViewById<ScrollView>(Resource.Id.ScrollView);
             historyTextView = rootView.FindViewById<TextView>(Resource.Id.History);
             inputTextView = rootView.FindViewById<TextView>(Resource.Id.Input);
         }
@@ -71,6 +74,10 @@ namespace BasicCalculator
                 historyTextView.Text = savedInstanceState.GetString(history_text_key);
                 inputTextView.Text = savedInstanceState.GetString(input_text_key);
             }
+        }
+        private void ScrollViewDown()
+        {
+            scrollView.Post(() => scrollView.FullScroll(FocusSearchDirection.Down));
         }
     }
 }
