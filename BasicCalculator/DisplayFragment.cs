@@ -15,6 +15,8 @@ namespace BasicCalculator
 {
     public class DisplayFragment : Fragment
     {
+        private const string history_text_key = "history_text_key";
+        private const string input_text_key = "input_text_key";
         private TextView historyTextView;
         private TextView inputTextView;
 
@@ -32,7 +34,15 @@ namespace BasicCalculator
         {
             View view = inflater.Inflate(Resource.Layout.FragmentDisplay, container, false);
             InitViews(view);
+            InitState(savedInstanceState);
             return view;
+        }
+
+        public override void OnSaveInstanceState(Bundle outState)
+        {
+            outState.PutString(history_text_key, historyTextView.Text);
+            outState.PutString(input_text_key, inputTextView.Text);
+            base.OnSaveInstanceState(outState);
         }
 
         public void Render(string history, string input)
@@ -53,6 +63,14 @@ namespace BasicCalculator
         {
             historyTextView = rootView.FindViewById<TextView>(Resource.Id.History);
             inputTextView = rootView.FindViewById<TextView>(Resource.Id.Input);
+        }
+        private void InitState(Bundle savedInstanceState)
+        {
+            if (savedInstanceState != null)
+            {
+                historyTextView.Text = savedInstanceState.GetString(history_text_key);
+                inputTextView.Text = savedInstanceState.GetString(input_text_key);
+            }
         }
     }
 }
