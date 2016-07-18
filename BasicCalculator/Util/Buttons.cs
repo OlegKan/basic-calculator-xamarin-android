@@ -101,7 +101,15 @@ namespace BasicCalculator.Util
         public void Click(Display display)
         {
             string input = display.input + " " + Buttons.equal + " ???";
-            string history = display.history + System.Environment.NewLine + input;
+            string history;
+            if (String.IsNullOrEmpty(display.history))
+            {
+                history = input;
+            }
+            else
+            {
+                history = display.history + System.Environment.NewLine + input;
+            }
             display.history = history;
             display.input = null;
         }
